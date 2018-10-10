@@ -138,10 +138,10 @@ func (kgdb *KVInterfaceGDB) DelEdge(eid string) error {
 		return fmt.Errorf("Edge Not Found")
 	}
 
-	_, _, sid, did, _, _ := EdgeKeyParse(ekey)
+	_, _, sid, did, label, etype := EdgeKeyParse(ekey)
 
-	skey := SrcEdgeKeyPrefix(kgdb.graph, sid, did, eid)
-	dkey := DstEdgeKeyPrefix(kgdb.graph, sid, did, eid)
+	skey := SrcEdgeKey(kgdb.graph, sid, did, eid, label, etype)
+	dkey := DstEdgeKey(kgdb.graph, sid, did, eid, label, etype)
 
 	if err := kgdb.kvg.kv.Delete(ekey); err != nil {
 		return err
@@ -468,18 +468,27 @@ func (kgdb *KVInterfaceGDB) GetVertexChannel(ids chan gdbi.ElementLookup, load b
 
 //GetOutChannel process requests of vertex ids and find the connected vertices on outgoing edges
 func (kgdb *KVInterfaceGDB) GetOutChannel(reqChan chan gdbi.ElementLookup, load bool, edgeLabels []string) chan gdbi.ElementLookup {
+	log.Printf("Outlabel: %s load: %s", edgeLabels, load)
 	outChan := make(chan gdbi.ElementLookup, 100)
 	go func() {
 		defer close(outChan)
 		kgdb.kvg.kv.View(func(it kvi.KVIterator) error {
 			for req := range reqChan {
-				skeyPrefix := SrcEdgePrefix(kgdb.graph, req.ID)
-				for it.Seek(skeyPrefix); it.Valid() && bytes.HasPrefix(it.Key(), skeyPrefix); it.Next() {
-					keyValue := it.Key()
-					_, _, dst, _, label, etype := SrcEdgeKeyParse(keyValue)
-					v := &gripql.Vertex{Gid: dst, Label: label}
-					if len(edgeLabels) == 0 || contains(edgeLabels, label) {
+				prefixes := make([][]byte, 0, len(edgeLabels)+1)
+				if len(edgeLabels) == 0 {
+					prefixes = append(prefixes, SrcEdgePrefix(kgdb.graph, req.ID))
+				} else {
+					for _, label := range edgeLabels {
+						skeyPrefix := SrcEdgeLabelPrefix(kgdb.graph, req.ID, label)
+						prefixes = append(prefixes, skeyPrefix)
+					}
+				}
+				for _, pre := range prefixes {
+					for it.Seek(pre); it.Valid() && bytes.HasPrefix(it.Key(), pre); it.Next() {
+						keyValue := it.Key()
+						_, _, dst, _, label, etype := SrcEdgeKeyParse(keyValue)
 						if etype == edgeSingle {
+							v := &gripql.Vertex{Gid: dst, Label: label}
 							outChan <- gdbi.ElementLookup{
 								Vertex: v,
 								Ref:    req.Ref,

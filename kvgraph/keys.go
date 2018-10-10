@@ -4,6 +4,21 @@ import (
 	"bytes"
 )
 
+// graph entry
+// key: g | graph
+
+// vertex entry
+// key: v | graph | gid
+
+// edge entry
+// key: e | graph | gid | src | dst | label
+
+// src edge index
+// key: s | graph | src | dst | eid | label
+
+// dst edge index
+// key: d | graph | dst | src | eid | label
+
 var graphPrefix = []byte("g")
 var vertexPrefix = []byte("v")
 var edgePrefix = []byte("e")
@@ -27,6 +42,20 @@ func GraphKeyParse(key []byte) string {
 	tmp := bytes.Split(key, []byte{0})
 	graph := string(tmp[1])
 	return graph
+}
+
+// VertexKey generates the key given a vertexId
+func VertexKey(graph, id string) []byte {
+	return bytes.Join([][]byte{vertexPrefix, []byte(graph), []byte(id)}, []byte{0})
+}
+
+// VertexKeyParse takes a byte array key and returns:
+// `graphId`, `vertexId`
+func VertexKeyParse(key []byte) (string, string) {
+	tmp := bytes.Split(key, []byte{0})
+	graph := tmp[1]
+	vid := tmp[2]
+	return string(graph), string(vid)
 }
 
 // EdgeKey takes the required components of an edge key and returns the byte array
@@ -64,22 +93,12 @@ func EdgeListPrefix(graph string) []byte {
 
 // SrcEdgeKey creates a src edge index key
 func SrcEdgeKey(graph, src, dst, eid, label string, etype byte) []byte {
-	return bytes.Join([][]byte{srcEdgePrefix, []byte(graph), []byte(src), []byte(dst), []byte(eid), []byte(label), {etype}}, []byte{0})
+	return bytes.Join([][]byte{srcEdgePrefix, []byte(graph), []byte(src), []byte(label), []byte(dst), []byte(eid), {etype}}, []byte{0})
 }
 
 // DstEdgeKey creates a dest edge index key
 func DstEdgeKey(graph, src, dst, eid, label string, etype byte) []byte {
-	return bytes.Join([][]byte{dstEdgePrefix, []byte(graph), []byte(dst), []byte(src), []byte(eid), []byte(label), {etype}}, []byte{0})
-}
-
-// SrcEdgeKeyPrefix creates a byte array prefix for a src edge index entry
-func SrcEdgeKeyPrefix(graph, src, dst, eid string) []byte {
-	return bytes.Join([][]byte{srcEdgePrefix, []byte(graph), []byte(src), []byte(dst), []byte(eid), {}}, []byte{0})
-}
-
-// DstEdgeKeyPrefix creates a byte array prefix for a dest edge index entry
-func DstEdgeKeyPrefix(graph, src, dst, eid string) []byte {
-	return bytes.Join([][]byte{dstEdgePrefix, []byte(graph), []byte(dst), []byte(src), []byte(eid), {}}, []byte{0})
+	return bytes.Join([][]byte{dstEdgePrefix, []byte(graph), []byte(dst), []byte(label), []byte(src), []byte(eid), {etype}}, []byte{0})
 }
 
 // SrcEdgeKeyParse takes a src index key entry and parses it into:
@@ -126,22 +145,12 @@ func SrcEdgePrefix(graph, id string) []byte {
 	return bytes.Join([][]byte{srcEdgePrefix, []byte(graph), []byte(id), {}}, []byte{0})
 }
 
+func SrcEdgeLabelPrefix(graph, id, label string) []byte {
+	return bytes.Join([][]byte{srcEdgePrefix, []byte(graph), []byte(id), []byte(label), {}}, []byte{0})
+}
+
 // DstEdgePrefix returns a byte array prefix for all entries in the dest
 // edge index a particular vertex (the dest vertex)
 func DstEdgePrefix(graph, id string) []byte {
 	return bytes.Join([][]byte{dstEdgePrefix, []byte(graph), []byte(id), {}}, []byte{0})
-}
-
-// VertexKey generates the key given a vertexId
-func VertexKey(graph, id string) []byte {
-	return bytes.Join([][]byte{vertexPrefix, []byte(graph), []byte(id)}, []byte{0})
-}
-
-// VertexKeyParse takes a byte array key and returns:
-// `graphId`, `vertexId`
-func VertexKeyParse(key []byte) (string, string) {
-	tmp := bytes.Split(key, []byte{0})
-	graph := tmp[1]
-	vid := tmp[2]
-	return string(graph), string(vid)
 }
