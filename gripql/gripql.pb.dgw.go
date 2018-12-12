@@ -167,6 +167,25 @@ func (shim *QueryDirectClient) GetSchema(ctx context.Context, in *GraphID, opts 
 	return shim.server.GetSchema(ctx, in)
 }
 
+// ComputeDirectClient is a shim to connect Compute client directly server
+type ComputeDirectClient struct {
+	server ComputeServer
+}
+ // NewComputeDirectClient creates new ComputeDirectClient
+func NewComputeDirectClient(server ComputeServer) *ComputeDirectClient {
+	return &ComputeDirectClient{server}
+}
+
+//Project shim
+func (shim *ComputeDirectClient) Project(ctx context.Context, in *GraphQuery, opts ...grpc.CallOption) (*GraphID, error) {
+	return shim.server.Project(ctx, in)
+}
+
+//Compute shim
+func (shim *ComputeDirectClient) Compute(ctx context.Context, in *GraphQuery, opts ...grpc.CallOption) (*EditResult, error) {
+	return shim.server.Compute(ctx, in)
+}
+
 // EditDirectClient is a shim to connect Edit client directly server
 type EditDirectClient struct {
 	server EditServer

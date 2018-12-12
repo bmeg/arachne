@@ -6,7 +6,7 @@ import requests
 
 from gripql.util import process_url, raise_for_status
 from gripql.query import Query
-
+from gripql.compute import Compute
 
 class Graph:
     def __init__(self, url, name, user=None, password=None):
@@ -153,6 +153,12 @@ class Graph:
         Create a query handle.
         """
         return Query(self.base_url, self.name)
+
+    def compute(self):
+        """
+        Create a compute handle.
+        """
+        return Compute(self.base_url, self.name)
 
 
 class BulkAdd:

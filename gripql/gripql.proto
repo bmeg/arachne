@@ -322,6 +322,20 @@ service Query {
 
 }
 
+service Compute {
+	rpc Project(GraphQuery) returns (GraphID) {
+		option (google.api.http) = {
+			post: "/v1/graph/{graph}/project"
+		};
+	}
+
+	rpc Compute(GraphQuery) returns (EditResult) {
+		option (google.api.http) = {
+			post: "/v1/graph/{graph}/compute"
+		};
+	}
+}
+
 service Edit {
   rpc AddVertex(GraphElement) returns (EditResult) {
     option (google.api.http) = {

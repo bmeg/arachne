@@ -4,6 +4,7 @@ import json
 import logging
 import os
 import requests
+import inspect
 
 from gripql.util import AttrDict, Rate, process_url
 
@@ -31,7 +32,7 @@ def _wrap_dict_value(value):
     return _wrap_value(value, dict)
 
 
-class Query:
+class Query(object):
     def __init__(self, url, graph, user=None, password=None):
         self.query = []
         url = process_url(url)
@@ -259,6 +260,13 @@ class Query:
         """
         aggregations = _wrap_dict_value(aggregations)
         return self.__append({"aggregate": {"aggregations": aggregations}})
+
+    def map(self, mapper):
+        """
+        Map data using user function
+        """
+        src = inspect.getsource(mapper)
+        return self.__append({"map" : {"starlark" : src}})
 
     def to_json(self):
         """
