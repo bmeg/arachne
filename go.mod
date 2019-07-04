@@ -6,9 +6,11 @@ require (
 	github.com/AndreasBriese/bbloom v0.0.0-20190306092124-e2d15f34fcf9 // indirect
 	github.com/Shopify/sarama v1.22.1
 	github.com/bmeg/golib v0.0.0-20170626075926-82a1e1d7a0b2
+	github.com/bmeg/protoc-gen-grcp-rest-direct v0.0.0-20190228222353-4d40e8b9d305 // indirect
 	github.com/boltdb/bolt v1.3.1
+	github.com/ckaznocha/protoc-gen-lint v0.2.1 // indirect
 	github.com/davecgh/go-spew v1.1.1
-	github.com/dgraph-io/badger v2.0.0-rc.2+incompatible
+	github.com/dgraph-io/badger v2.0.0-rc2+incompatible
 	github.com/dgryski/go-farm v0.0.0-20190423205320-6a90982ecee2 // indirect
 	github.com/dlclark/regexp2 v1.1.6 // indirect
 	github.com/dop251/goja v0.0.0-20190429205339-8d6ee3d16611
@@ -22,7 +24,7 @@ require (
 	github.com/graphql-go/graphql v0.7.8
 	github.com/graphql-go/handler v0.2.3
 	github.com/grpc-ecosystem/go-grpc-middleware v1.0.0
-	github.com/grpc-ecosystem/grpc-gateway v1.8.5
+	github.com/grpc-ecosystem/grpc-gateway v1.9.3
 	github.com/hashicorp/go-multierror v1.0.0
 	github.com/imdario/mergo v0.3.7
 	github.com/jmoiron/sqlx v1.2.0

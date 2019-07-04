@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package executor;
+
+import "google/protobuf/struct.proto";
+
+message Code {
+  string code = 1;
+  string function = 2;
+}
+
+message CompileResult {
+  uint32 id = 1;
+  string error = 2;
+}
+
+message Input {
+  repeated google.protobuf.Value data = 1;
+  uint32 code = 2;
+}
+
+message Result {
+  google.protobuf.Value data = 1;
+  string error = 2;
+}
+
+service Executor {
+  rpc Compile(Code) returns (CompileResult) {}
+  rpc Process(stream Input) returns (stream Result) {}
+}

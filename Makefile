@@ -60,13 +60,21 @@ proto:
 		-I ./ \
 		--go_out=. \
 		index.proto
+	@cd executor && protoc \
+		-I ./ \
+		-I ../googleapis \
+		--lint_out=. \
+		--go_out=Mgoogle/protobuf/struct.proto=github.com/golang/protobuf/ptypes/struct,plugins=grpc:. \
+		--grpc-gateway_out=logtostderr=true:. \
+		--grcp-rest-direct_out=. \
+		exec.proto
 
 proto-depends:
 	@git submodule update --init --recursive
-	@go get github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
-	@go get github.com/golang/protobuf/protoc-gen-go
-	@go get github.com/ckaznocha/protoc-gen-lint
-	@go get github.com/bmeg/protoc-gen-grcp-rest-direct
+	@go install github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
+	@go install github.com/golang/protobuf/protoc-gen-go
+	@go install github.com/ckaznocha/protoc-gen-lint
+	@go install github.com/bmeg/protoc-gen-grcp-rest-direct
 
 
 # ---------------------
