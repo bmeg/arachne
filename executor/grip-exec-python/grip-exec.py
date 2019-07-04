@@ -3,6 +3,7 @@
 import sys
 import grpc
 import time
+import json
 import logging
 
 import exec_pb2
@@ -22,7 +23,7 @@ class CallableCode:
         exec(code, self.env)
 
     def call(self, values):
-        pass
+        return self.env[self.name](*values)
 
 
 class PyGripExec:
@@ -46,10 +47,11 @@ class PyGripExec:
             if req.code in self.code:
                 c = self.code[req.code]
                 try:
-                    logging.info("calling %s", req.code)
-                    value = c.call(*req.data)
+                    logging.info("calling %s on %s" % (req.code, req.data))
+                    data = json.loads(req.data)
+                    value = c.call(data)
                     o = exec_pb2.Result()
-                    o.data = value
+                    o.data = json.dumps(value)
                     yield o
                 except Exception as e:
                     o = exec_pb2.Result()

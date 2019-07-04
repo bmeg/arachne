@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package executor;
 
-import "google/protobuf/struct.proto";
+//import "google/protobuf/struct.proto";
 
 message Code {
   string code = 1;
@@ -15,12 +15,14 @@ message CompileResult {
 }
 
 message Input {
-  repeated google.protobuf.Value data = 1;
+  //repeated google.protobuf.Value data = 1;
+  string data = 1;
   uint32 code = 2;
 }
 
 message Result {
-  google.protobuf.Value data = 1;
+  //google.protobuf.Value data = 1;
+  string data = 1;
   string error = 2;
 }
 

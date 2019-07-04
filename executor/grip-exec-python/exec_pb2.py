@@ -13,7 +13,6 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-from google.protobuf import struct_pb2 as google_dot_protobuf_dot_struct__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -21,9 +20,8 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='executor',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\nexec.proto\x12\x08\x65xecutor\x1a\x1cgoogle/protobuf/struct.proto\"&\n\x04\x43ode\x12\x0c\n\x04\x63ode\x18\x01 \x01(\t\x12\x10\n\x08\x66unction\x18\x02 \x01(\t\"*\n\rCompileResult\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x65rror\x18\x02 \x01(\t\";\n\x05Input\x12$\n\x04\x64\x61ta\x18\x01 \x03(\x0b\x32\x16.google.protobuf.Value\x12\x0c\n\x04\x63ode\x18\x02 \x01(\r\"=\n\x06Result\x12$\n\x04\x64\x61ta\x18\x01 \x01(\x0b\x32\x16.google.protobuf.Value\x12\r\n\x05\x65rror\x18\x02 \x01(\t2t\n\x08\x45xecutor\x12\x34\n\x07\x43ompile\x12\x0e.executor.Code\x1a\x17.executor.CompileResult\"\x00\x12\x32\n\x07Process\x12\x0f.executor.Input\x1a\x10.executor.Result\"\x00(\x01\x30\x01\x62\x06proto3')
-  ,
-  dependencies=[google_dot_protobuf_dot_struct__pb2.DESCRIPTOR,])
+  serialized_pb=_b('\n\nexec.proto\x12\x08\x65xecutor\"&\n\x04\x43ode\x12\x0c\n\x04\x63ode\x18\x01 \x01(\t\x12\x10\n\x08\x66unction\x18\x02 \x01(\t\"*\n\rCompileResult\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x65rror\x18\x02 \x01(\t\"#\n\x05Input\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\t\x12\x0c\n\x04\x63ode\x18\x02 \x01(\r\"%\n\x06Result\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\t\x12\r\n\x05\x65rror\x18\x02 \x01(\t2t\n\x08\x45xecutor\x12\x34\n\x07\x43ompile\x12\x0e.executor.Code\x1a\x17.executor.CompileResult\"\x00\x12\x32\n\x07Process\x12\x0f.executor.Input\x1a\x10.executor.Result\"\x00(\x01\x30\x01\x62\x06proto3')
+)
 
 
 
@@ -61,8 +59,8 @@ _CODE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=54,
-  serialized_end=92,
+  serialized_start=24,
+  serialized_end=62,
 )
 
 
@@ -99,8 +97,8 @@ _COMPILERESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=94,
-  serialized_end=136,
+  serialized_start=64,
+  serialized_end=106,
 )
 
 
@@ -113,8 +111,8 @@ _INPUT = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='data', full_name='executor.Input.data', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -137,8 +135,8 @@ _INPUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=138,
-  serialized_end=197,
+  serialized_start=108,
+  serialized_end=143,
 )
 
 
@@ -151,8 +149,8 @@ _RESULT = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='data', full_name='executor.Result.data', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -175,44 +173,42 @@ _RESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=199,
-  serialized_end=260,
+  serialized_start=145,
+  serialized_end=182,
 )
 
-_INPUT.fields_by_name['data'].message_type = google_dot_protobuf_dot_struct__pb2._VALUE
-_RESULT.fields_by_name['data'].message_type = google_dot_protobuf_dot_struct__pb2._VALUE
 DESCRIPTOR.message_types_by_name['Code'] = _CODE
 DESCRIPTOR.message_types_by_name['CompileResult'] = _COMPILERESULT
 DESCRIPTOR.message_types_by_name['Input'] = _INPUT
 DESCRIPTOR.message_types_by_name['Result'] = _RESULT
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-Code = _reflection.GeneratedProtocolMessageType('Code', (_message.Message,), dict(
-  DESCRIPTOR = _CODE,
-  __module__ = 'exec_pb2'
+Code = _reflection.GeneratedProtocolMessageType('Code', (_message.Message,), {
+  'DESCRIPTOR' : _CODE,
+  '__module__' : 'exec_pb2'
   # @@protoc_insertion_point(class_scope:executor.Code)
-  ))
+  })
 _sym_db.RegisterMessage(Code)
 
-CompileResult = _reflection.GeneratedProtocolMessageType('CompileResult', (_message.Message,), dict(
-  DESCRIPTOR = _COMPILERESULT,
-  __module__ = 'exec_pb2'
+CompileResult = _reflection.GeneratedProtocolMessageType('CompileResult', (_message.Message,), {
+  'DESCRIPTOR' : _COMPILERESULT,
+  '__module__' : 'exec_pb2'
   # @@protoc_insertion_point(class_scope:executor.CompileResult)
-  ))
+  })
 _sym_db.RegisterMessage(CompileResult)
 
-Input = _reflection.GeneratedProtocolMessageType('Input', (_message.Message,), dict(
-  DESCRIPTOR = _INPUT,
-  __module__ = 'exec_pb2'
+Input = _reflection.GeneratedProtocolMessageType('Input', (_message.Message,), {
+  'DESCRIPTOR' : _INPUT,
+  '__module__' : 'exec_pb2'
   # @@protoc_insertion_point(class_scope:executor.Input)
-  ))
+  })
 _sym_db.RegisterMessage(Input)
 
-Result = _reflection.GeneratedProtocolMessageType('Result', (_message.Message,), dict(
-  DESCRIPTOR = _RESULT,
-  __module__ = 'exec_pb2'
+Result = _reflection.GeneratedProtocolMessageType('Result', (_message.Message,), {
+  'DESCRIPTOR' : _RESULT,
+  '__module__' : 'exec_pb2'
   # @@protoc_insertion_point(class_scope:executor.Result)
-  ))
+  })
 _sym_db.RegisterMessage(Result)
 
 
@@ -223,8 +219,8 @@ _EXECUTOR = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=262,
-  serialized_end=378,
+  serialized_start=184,
+  serialized_end=300,
   methods=[
   _descriptor.MethodDescriptor(
     name='Compile',

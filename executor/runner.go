@@ -92,12 +92,15 @@ func (run *Runner) Process(in chan *Input) (chan *Result, error) {
     for i := range in {
       cl.Send(i)
     }
+    log.Printf("Done Sending")
     cl.CloseSend()
   }()
   go func() {
+    defer close(out)
     for {
 		    r, err := cl.Recv()
 		    if err != nil {
+          log.Printf("Done Receiving")
           return
         }
         out <- r

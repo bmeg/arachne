@@ -66,7 +66,6 @@ proto:
 		--lint_out=. \
 		--go_out=Mgoogle/protobuf/struct.proto=github.com/golang/protobuf/ptypes/struct,plugins=grpc:. \
 		--grpc-gateway_out=logtostderr=true:. \
-		--grcp-rest-direct_out=. \
 		exec.proto
 
 proto-depends:

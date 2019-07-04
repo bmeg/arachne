@@ -5,6 +5,7 @@ import (
 	"log"
 	"sync"
 	"testing"
+	"encoding/json"
 )
 
 
@@ -41,10 +42,12 @@ def add(x):
 		}
 		w.Done()
 	}()
-
-	in <- &Input{Code:codeRes.Id}
-	in <- &Input{Code:codeRes.Id}
-	in <- &Input{Code:codeRes.Id}
+	s1, _ := json.Marshal([]int{1})
+	in <- &Input{Code:codeRes.Id, Data:string(s1)}
+	s2, _ := json.Marshal([]int{2})
+	in <- &Input{Code:codeRes.Id, Data:string(s2)}
+	s3, _ := json.Marshal([]int{3})
+	in <- &Input{Code:codeRes.Id, Data:string(s3)}
 	close(in)
 
 	w.Wait()
