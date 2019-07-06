@@ -9,12 +9,7 @@ import (
 )
 
 
-func TestPythonRunner(t *testing.T) {
-	exec, err := StartLocalExecutor("./grip-exec-python/grip-exec.py")
-	if err != nil {
-		t.Errorf("error: %s", err)
-	}
-	log.Printf("Port %d", exec.Port)
+func runPythonMapTest(t *testing.T, exec Runner) {
 	code := &Code{ Code: `
 def add(x):
 	return x + 1
@@ -51,5 +46,24 @@ def add(x):
 	close(in)
 
 	w.Wait()
+}
+
+func TestPythonLocalRunner(t *testing.T) {
+	exec, err := StartLocalExecutor("./grip-exec-python/grip-exec.py")
+	if err != nil {
+		t.Errorf("error: %s", err)
+	}
+	runPythonMapTest(t, exec)
+	exec.Close()
+}
+
+
+func TestPythonDockerRunner(t *testing.T) {
+	exec, err := StartDockerExecutor("bmeg/grip-exec-python")
+	if err != nil {
+		t.Errorf("error: %s", err)
+		return
+	}
+	runPythonMapTest(t, exec)
 	exec.Close()
 }
