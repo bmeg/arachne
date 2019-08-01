@@ -5,6 +5,7 @@ go 1.12
 require (
 	github.com/AndreasBriese/bbloom v0.0.0-20190306092124-e2d15f34fcf9 // indirect
 	github.com/Shopify/sarama v1.22.1
+	github.com/antlr/antlr4 v0.0.0-20190726171924-e4737db19f4f
 	github.com/bmeg/golib v0.0.0-20170626075926-82a1e1d7a0b2
 	github.com/boltdb/bolt v1.3.1
 	github.com/davecgh/go-spew v1.1.1
