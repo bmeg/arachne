@@ -11,6 +11,7 @@ import (
 
 	"github.com/bmeg/grip/gdbi"
 	"github.com/bmeg/grip/graphql"
+	"github.com/bmeg/grip/cypher"
 	"github.com/bmeg/grip/gripql"
 	"github.com/bmeg/grip/util/rpc"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
@@ -171,6 +172,12 @@ func (server *GripServer) Serve(pctx context.Context) error {
 		return fmt.Errorf("setting up GraphQL handler: %v", err)
 	}
 	mux.Handle("/graphql/", gqlHandler)
+
+	cypherHandler, err := cypher.NewHTTPHandler(server.conf.RPCAddress(), user, password)
+	if err != nil {
+		return fmt.Errorf("setting up cypher handler: %v", err)
+	}
+	mux.Handle("/cypher/", cypherHandler)
 
 	dashmux := http.NewServeMux()
 	if server.conf.ContentDir != "" {
