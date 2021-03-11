@@ -77,9 +77,6 @@ class Query(BaseConnection):
         label = _wrap_str_value(label)
         return self.__append({"in": label})
 
-    def inV(self, label=[]):
-        return self.in_(label)
-
     def out(self, label=[]):
         """
         Follow an outgoing edge to the destination vertex.
@@ -90,8 +87,15 @@ class Query(BaseConnection):
         label = _wrap_str_value(label)
         return self.__append({"out": label})
 
-    def outV(self, label=[]):
-        return self.out(label)
+    def outOpt(self, label=[]):
+        """
+        Follow an outgoing edge to the destination vertex.
+
+        "label" is the label of the edge to follow.
+        "label" can be a list.
+        """
+        label = _wrap_str_value(label)
+        return self.__append({"out_opt": label})
 
     def both(self, label=[]):
         """
@@ -102,9 +106,6 @@ class Query(BaseConnection):
         """
         label = _wrap_str_value(label)
         return self.__append({"both": label})
-
-    def bothV(self, label=[]):
-        return self.both(label)
 
     def inE(self, label=[]):
         """

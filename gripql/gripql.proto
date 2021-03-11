@@ -28,12 +28,19 @@ message GraphStatement {
     google.protobuf.ListValue v = 1;
     google.protobuf.ListValue e = 2;
 
-    google.protobuf.ListValue in = 10;
-    google.protobuf.ListValue out = 11;
-    google.protobuf.ListValue both = 14;
-    google.protobuf.ListValue in_e = 12;
-    google.protobuf.ListValue out_e = 13;
-    google.protobuf.ListValue both_e = 15;
+    google.protobuf.ListValue in = 5;
+    google.protobuf.ListValue out = 6;
+    google.protobuf.ListValue both = 7;
+    google.protobuf.ListValue in_e = 8;
+    google.protobuf.ListValue out_e = 9;
+    google.protobuf.ListValue both_e = 10;
+
+		google.protobuf.ListValue in_opt  = 11;
+    google.protobuf.ListValue out_opt = 12;
+		google.protobuf.ListValue both_opt = 13;
+    google.protobuf.ListValue in_e_opt = 14;
+    google.protobuf.ListValue out_e_opt = 15;
+    google.protobuf.ListValue both_e_opt = 16;
 
     string as = 20;
     SelectStatement select = 21;
